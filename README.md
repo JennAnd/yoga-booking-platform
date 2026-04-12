@@ -1,16 +1,30 @@
-# React + Vite
+# Yoga Booking Platform
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A frontend-focused React application for discovering, booking, and managing yoga classes.
 
-Currently, two official plugins are available:
+The project is being built as a portfolio piece with a strong focus on UI structure, reusable components, client-side state management, routing, and user experience. Users will be able to browse classes, view class details, register, log in, book or cancel classes, join a waitlist for full classes, and manage their bookings from a profile page.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Planned features
 
-## React Compiler
+- Browse all available yoga classes
+- View detailed information for each class
+- Filter and search classes
+- Register and log in
+- Book and cancel classes
+- Join a waitlist for fully booked classes
+- Save favorite classes
+- View bookings, waitlist entries, and favorites on a profile page
+- Responsive layout for mobile and desktop
+- Clear UI states such as low availability, full classes, and empty states
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Tech stack
 
-## Expanding the ESLint configuration
+- React
+- JavaScript
+- React Router
+- localStorage
+- CSS
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Project status
+
+Work in progress. The project structure, routing, and core frontend foundation are currently being built.
