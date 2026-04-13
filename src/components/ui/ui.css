@@ -1,0 +1,126 @@
+.ui-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.ui-button:hover {
+  transform: translateY(-1px);
+}
+
+.ui-button:focus-visible,
+.ui-input:focus-visible,
+.ui-select:focus-visible {
+  outline: 2px solid var(--color-primary-dark);
+  outline-offset: 2px;
+}
+
+.ui-button:disabled,
+.ui-input:disabled,
+.ui-select:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.ui-button--primary {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.ui-button--primary:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.ui-button--secondary {
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+.ui-button--secondary:hover {
+  background-color: var(--color-surface-muted);
+}
+
+.ui-button--ghost {
+  background-color: transparent;
+  color: var(--color-text);
+}
+
+.ui-button--ghost:hover {
+  background-color: var(--color-surface-muted);
+}
+
+.ui-button--danger {
+  background-color: var(--color-danger);
+  color: white;
+}
+
+.ui-button--danger:hover {
+  opacity: 0.9;
+}
+
+.ui-input,
+.ui-select {
+  width: 100%;
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  font: inherit;
+  font-size: 0.95rem;
+}
+
+.ui-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 0.35rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.ui-badge--beginner {
+  background-color: #e8f3ea;
+  color: #335c3d;
+}
+
+.ui-badge--intermediate {
+  background-color: #f3ecd9;
+  color: #7a5a1f;
+}
+
+.ui-badge--advanced {
+  background-color: #efe3e3;
+  color: #8a4040;
+}
+
+.ui-badge--fully-booked {
+  background-color: #f1dede;
+  color: #8b3c3c;
+}
+
+.ui-badge--few-spots {
+  background-color: #f5ead6;
+  color: #8a621f;
+}
