@@ -4,7 +4,12 @@
  */
 
 function ClassDetails() {
-  return <h1>Class Details</h1>;
+  return (
+    <section className="page-placeholder">
+      <h1>Class Details</h1>
+      <p>Detailed information about the selected class will appear here.</p>
+    </section>
+  );
 }
 
 export default ClassDetails;

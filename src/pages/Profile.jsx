@@ -1,10 +1,17 @@
 /**
- * Register page.
- * Allows users to create a new account.
+ * Profile page.
+ * Displays the user's bookings, waitlist entries, and favorites.
  */
 
-function Register() {
-  return <h1>Register</h1>;
+function Profile() {
+  return (
+    <section className="page-placeholder">
+      <h1>Profile</h1>
+      <p>
+        The user's bookings, waitlist entries, and favorites will appear here.
+      </p>
+    </section>
+  );
 }
 
-export default Register;
+export default Profile;

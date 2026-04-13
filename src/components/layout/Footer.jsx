@@ -4,8 +4,10 @@
 
 function Footer() {
   return (
-    <footer>
-      <p>© 2026 Yoga Booking Platform</p>
+    <footer className="site-footer">
+      <div className="container">
+        <p>© 2026 Yoga Booking Platform. Built with React.</p>
+      </div>
     </footer>
   );
 }

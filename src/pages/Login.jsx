@@ -4,7 +4,12 @@
  */
 
 function Login() {
-  return <h1>Login</h1>;
+  return (
+    <section className="page-placeholder">
+      <h1>Login</h1>
+      <p>Users will be able to sign in here.</p>
+    </section>
+  );
 }
 
 export default Login;

@@ -3,7 +3,12 @@
  */
 
 function Home() {
-  return <h1>Home</h1>;
+  return (
+    <section className="page-placeholder">
+      <h1>Home</h1>
+      <p>Welcome to the Yoga Booking Platform.</p>
+    </section>
+  );
 }
 
 export default Home;

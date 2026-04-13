@@ -11,21 +11,25 @@ import NotFound from "./pages/NotFound";
 
 function App() {
   return (
-    <>
+    <div className="app-shell">
       <Navbar />
-      <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/classes" element={<Classes />} />
-          <Route path="/classes/:id" element={<ClassDetails />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+
+      <main className="site-main">
+        <div className="container">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/classes" element={<Classes />} />
+            <Route path="/classes/:id" element={<ClassDetails />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/profile" element={<Profile />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </div>
       </main>
+
       <Footer />
-    </>
+    </div>
   );
 }
 
