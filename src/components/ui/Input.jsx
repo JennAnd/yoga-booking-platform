@@ -8,6 +8,7 @@ function Input({
   id,
   name,
   type = "text",
+  label,
   placeholder = "",
   value,
   onChange,
