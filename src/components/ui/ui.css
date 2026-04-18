@@ -136,41 +136,42 @@
   align-items: center;
   justify-content: center;
   min-height: 32px;
-  padding: 0.35rem 0.7rem;
+  padding: 0.35rem 0.8rem;
   border-radius: 999px;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 600;
+  letter-spacing: 0.01em;
   line-height: 1;
 }
 
 .ui-badge--beginner {
-  background-color: #e8f3ea;
-  color: #335c3d;
+  background-color: #e6eee8;
+  color: #4d6457;
 }
 
 .ui-badge--intermediate {
-  background-color: #f3ecd9;
-  color: #7a5a1f;
+  background-color: #efe5d8;
+  color: #7d5e3b;
 }
 
 .ui-badge--advanced {
-  background-color: #efe3e3;
-  color: #8a4040;
+  background-color: #efe3e1;
+  color: #8a5750;
 }
 
 .ui-badge--all-levels {
-  background-color: #e8eef5;
-  color: #36506b;
+  background-color: #ebe6e0;
+  color: #6d5e55;
 }
 
 .ui-badge--fully-booked {
-  background-color: #f1dede;
-  color: #8b3c3c;
+  background-color: #f1e1de;
+  color: #8b5752;
 }
 
 .ui-badge--few-spots {
-  background-color: #f5ead6;
-  color: #8a621f;
+  background-color: #f1e7d8;
+  color: #8a6842;
 }
 
 /* ---------------------------------- */
