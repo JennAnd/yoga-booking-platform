@@ -18,6 +18,11 @@ function AuthProvider({ children }) {
     }
   }, []);
 
+  const updateStoredUser = (updatedUser) => {
+    localStorage.setItem("still-studio-user", JSON.stringify(updatedUser));
+    setUser(updatedUser);
+  };
+
   const login = ({ email, password }) => {
     const storedUser = localStorage.getItem("still-studio-user");
 
@@ -42,6 +47,9 @@ function AuthProvider({ children }) {
       email,
       password,
       membership: "Unlimited Monthly",
+      bookings: [],
+      waitlist: [],
+      favorites: [],
     };
 
     localStorage.setItem("still-studio-user", JSON.stringify(newUser));
@@ -52,6 +60,82 @@ function AuthProvider({ children }) {
     setUser(null);
   };
 
+  const bookClass = (classId) => {
+    if (!user) {
+      throw new Error("You need to be logged in to book a class.");
+    }
+
+    const alreadyBooked = user.bookings.includes(classId);
+
+    if (alreadyBooked) {
+      throw new Error("You have already booked this class.");
+    }
+
+    const updatedUser = {
+      ...user,
+      bookings: [...user.bookings, classId],
+      waitlist: user.waitlist.filter(
+        (currentClassId) => currentClassId !== classId,
+      ),
+    };
+
+    updateStoredUser(updatedUser);
+  };
+
+  const cancelBooking = (classId) => {
+    if (!user) {
+      throw new Error("You need to be logged in to manage bookings.");
+    }
+
+    const updatedUser = {
+      ...user,
+      bookings: user.bookings.filter(
+        (currentClassId) => currentClassId !== classId,
+      ),
+    };
+
+    updateStoredUser(updatedUser);
+  };
+
+  const joinWaitlist = (classId) => {
+    if (!user) {
+      throw new Error("You need to be logged in to join the waitlist.");
+    }
+
+    const alreadyBooked = user.bookings.includes(classId);
+    const alreadyWaitlisted = user.waitlist.includes(classId);
+
+    if (alreadyBooked) {
+      throw new Error("You have already booked this class.");
+    }
+
+    if (alreadyWaitlisted) {
+      throw new Error("You are already on the waitlist for this class.");
+    }
+
+    const updatedUser = {
+      ...user,
+      waitlist: [...user.waitlist, classId],
+    };
+
+    updateStoredUser(updatedUser);
+  };
+
+  const leaveWaitlist = (classId) => {
+    if (!user) {
+      throw new Error("You need to be logged in to manage your waitlist.");
+    }
+
+    const updatedUser = {
+      ...user,
+      waitlist: user.waitlist.filter(
+        (currentClassId) => currentClassId !== classId,
+      ),
+    };
+
+    updateStoredUser(updatedUser);
+  };
+
   const value = useMemo(
     () => ({
       user,
@@ -59,6 +143,10 @@ function AuthProvider({ children }) {
       login,
       register,
       logout,
+      bookClass,
+      cancelBooking,
+      joinWaitlist,
+      leaveWaitlist,
     }),
     [user],
   );

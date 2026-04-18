@@ -765,6 +765,52 @@ a {
 }
 
 /* ---------------------------------- */
+/* Class details booking actions     */
+/* ---------------------------------- */
+
+.class-details__booking-actions {
+  display: grid;
+  gap: var(--space-4);
+  margin-top: var(--space-5);
+  padding: var(--space-5);
+  background-color: rgba(253, 250, 246, 0.82);
+  border: 1px solid rgba(111, 87, 77, 0.08);
+  border-radius: var(--radius-lg);
+}
+
+.class-details__booking-title {
+  margin: 0;
+  font-size: 1.4rem;
+  color: var(--color-primary-dark);
+}
+
+.class-details__booking-note {
+  margin: 0;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+.class-details__feedback {
+  margin: 0;
+  padding: 0.9rem 1rem;
+  border-radius: var(--radius-md);
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.class-details__feedback--success {
+  color: #445747;
+  background-color: rgba(122, 147, 125, 0.12);
+  border: 1px solid rgba(122, 147, 125, 0.2);
+}
+
+.class-details__feedback--error {
+  color: #7a4d42;
+  background-color: rgba(155, 95, 79, 0.1);
+  border: 1px solid rgba(155, 95, 79, 0.18);
+}
+
+/* ---------------------------------- */
 /* Auth pages                         */
 /* ---------------------------------- */
 
