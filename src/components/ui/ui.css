@@ -1,28 +1,6 @@
-.ui-button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-2);
-  min-height: 44px;
-  padding: 0.75rem 1rem;
-  border: 1px solid transparent;
-  border-radius: var(--radius-md);
-  font: inherit;
-  font-size: 0.95rem;
-  font-weight: 600;
-  line-height: 1;
-  cursor: pointer;
-  transition:
-    background-color 0.2s ease,
-    color 0.2s ease,
-    border-color 0.2s ease,
-    opacity 0.2s ease,
-    transform 0.2s ease;
-}
-
-.ui-button:hover {
-  transform: translateY(-1px);
-}
+/* ---------------------------------- */
+/* Shared interactive states           */
+/* ---------------------------------- */
 
 .ui-button:focus-visible,
 .ui-input:focus-visible,
@@ -50,6 +28,36 @@
 .ui-modal__close-button:focus-visible {
   outline: 2px solid var(--color-primary-dark);
   outline-offset: 2px;
+}
+
+/* ---------------------------------- */
+/* Button style and variants           */
+/* ---------------------------------- */
+
+.ui-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.ui-button:hover {
+  transform: translateY(-1px);
 }
 
 .ui-button--primary {
@@ -89,6 +97,22 @@
   opacity: 0.9;
 }
 
+/* ---------------------------------- */
+/* Form fields                                 */
+/* Labels, inputs, and selects         */
+/* ---------------------------------- */
+
+.ui-field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.ui-field__label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
 .ui-input,
 .ui-select {
   width: 100%;
@@ -101,6 +125,11 @@
   font: inherit;
   font-size: 0.95rem;
 }
+
+/* ---------------------------------- */
+/* Badge styles                               */
+/* Used for class levels and status */
+/* ---------------------------------- */
 
 .ui-badge {
   display: inline-flex;
@@ -129,6 +158,11 @@
   color: #8a4040;
 }
 
+.ui-badge--all-levels {
+  background-color: #e8eef5;
+  color: #36506b;
+}
+
 .ui-badge--fully-booked {
   background-color: #f1dede;
   color: #8b3c3c;
@@ -138,6 +172,11 @@
   background-color: #f5ead6;
   color: #8a621f;
 }
+
+/* ---------------------------------- */
+/* Spinner                                      */
+/* Loading indicator                      */
+/* ---------------------------------- */
 
 .ui-spinner {
   width: 2rem;
@@ -153,6 +192,11 @@
     transform: rotate(360deg);
   }
 }
+
+/* ---------------------------------- */
+/* Empty state                                */
+/* Shown when no content exists  */
+/* ---------------------------------- */
 
 .ui-empty-state {
   padding: var(--space-6);
@@ -170,6 +214,11 @@
   margin: 0;
   color: var(--color-text-muted);
 }
+
+/* ---------------------------------- */
+/* Toast messages                          */
+/* Short feedback messages          */
+/* ---------------------------------- */
 
 .ui-toast {
   display: inline-flex;
@@ -195,6 +244,11 @@
   background-color: #f5e3e3;
   color: #8a4040;
 }
+
+/* ------------------------------------- */
+/* Modal dialog                                  */
+/* Overlay and confirmation dialog    */
+/* -------------------------------------- */
 
 .ui-modal-backdrop {
   position: fixed;
@@ -241,16 +295,5 @@
 }
 
 .ui-modal__content {
-  color: var(--color-text);
-}
-
-.ui-field {
-  display: grid;
-  gap: var(--space-2);
-}
-
-.ui-field__label {
-  font-size: 0.9rem;
-  font-weight: 600;
   color: var(--color-text);
 }
