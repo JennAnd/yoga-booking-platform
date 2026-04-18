@@ -38,6 +38,20 @@
   cursor: not-allowed;
 }
 
+.ui-button:disabled:hover {
+  transform: none;
+}
+
+.ui-input::placeholder,
+.ui-select:invalid {
+  color: var(--color-text-muted);
+}
+
+.ui-modal__close-button:focus-visible {
+  outline: 2px solid var(--color-primary-dark);
+  outline-offset: 2px;
+}
+
 .ui-button--primary {
   background-color: var(--color-primary);
   color: white;
@@ -227,5 +241,16 @@
 }
 
 .ui-modal__content {
+  color: var(--color-text);
+}
+
+.ui-field {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.ui-field__label {
+  font-size: 0.9rem;
+  font-weight: 600;
   color: var(--color-text);
 }

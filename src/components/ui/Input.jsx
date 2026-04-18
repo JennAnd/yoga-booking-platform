@@ -12,18 +12,27 @@ function Input({
   value,
   onChange,
   disabled = false,
+  className = "",
 }) {
   return (
-    <input
-      id={id}
-      name={name}
-      type={type}
-      className="ui-input"
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-      disabled={disabled}
-    />
+    <div className={`ui-field ${className}`.trim()}>
+      {label ? (
+        <label className="ui-field__label" htmlFor={id}>
+          {label}
+        </label>
+      ) : null}
+
+      <input
+        id={id}
+        name={name}
+        type={type}
+        className="ui-input"
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        disabled={disabled}
+      />
+    </div>
   );
 }
 
