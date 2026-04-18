@@ -1,3 +1,7 @@
+/* ---------------------------------- */
+/* Design tokens                            */
+/* ---------------------------------- */
+
 :root {
   --color-background: #f7f4ef;
   --color-surface: #ffffff;
@@ -32,11 +36,19 @@
   --max-width: 1200px;
 }
 
+/* ---------------------------------- */
+/* Breakpoints                                */
+/* ---------------------------------- */
+
 /* Breakpoints
    tablet: 768px
    desktop: 1024px
    large desktop: 1280px
 */
+
+/* ---------------------------------- */
+/* Global reset and base styles      */
+/* ---------------------------------- */
 
 *,
 *::before,
@@ -77,6 +89,10 @@ a {
   min-height: 100vh;
 }
 
+/* ---------------------------------- */
+/* App shell and container            */
+/* ---------------------------------- */
+
 .app-shell {
   min-height: 100vh;
   display: flex;
@@ -87,6 +103,15 @@ a {
   width: min(100% - 2rem, var(--max-width));
   margin: 0 auto;
 }
+
+.site-main {
+  flex: 1;
+  padding: var(--space-6) 0;
+}
+
+/* ---------------------------------- */
+/* Header and footer                     */
+/* ---------------------------------- */
 
 .site-header {
   background-color: var(--color-surface);
@@ -104,10 +129,9 @@ a {
   padding: var(--space-4) 0;
 }
 
-.site-main {
-  flex: 1;
-  padding: var(--space-6) 0;
-}
+/* ---------------------------------- */
+/* Navigation                                 */
+/* ---------------------------------- */
 
 .navbar {
   display: flex;
@@ -142,10 +166,89 @@ a {
   font-weight: 600;
 }
 
+/* ---------------------------------- */
+/* Shared page placeholder           */
+/* ---------------------------------- */
+
 .page-placeholder {
   padding: var(--space-6);
   background-color: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
+}
+
+/* ---------------------------------- */
+/* Class card layout                  */
+/* ---------------------------------- */
+
+.class-card-list {
+  display: grid;
+  gap: var(--space-4);
+  padding: 0;
+  list-style: none;
+}
+
+.class-card {
+  display: grid;
+  gap: var(--space-4);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.class-card__image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background-color: var(--color-surface-muted);
+}
+
+.class-card__content {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+}
+
+.class-card__header {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.class-card__title {
+  margin: 0;
+  font-size: 1.25rem;
+}
+
+.class-card__badges {
+  display: flex;
+  gap: var(--space-2);
+  flex-wrap: wrap;
+}
+
+.class-card__meta {
+  margin: 0;
+  color: var(--color-text-muted);
+}
+
+.class-card__description {
+  margin: 0;
+}
+
+.class-card__price {
+  margin: 0;
+  font-weight: 600;
+}
+
+@media (min-width: 768px) {
+  .class-card {
+    grid-template-columns: 280px 1fr;
+  }
+
+  .class-card__image {
+    height: 100%;
+    aspect-ratio: auto;
+  }
 }
