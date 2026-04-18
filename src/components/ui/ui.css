@@ -113,6 +113,34 @@
   color: var(--color-text);
 }
 
+.ui-input-wrapper {
+  position: relative;
+}
+
+.ui-input-wrapper .ui-input {
+  padding-right: 3rem;
+}
+
+.ui-input-toggle {
+  position: absolute;
+  top: 50%;
+  right: 0.85rem;
+  transform: translateY(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background: transparent;
+  padding: 0;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.ui-input-toggle:hover,
+.ui-input-toggle:focus-visible {
+  color: var(--color-text);
+}
+
 .ui-input,
 .ui-select {
   width: 100%;

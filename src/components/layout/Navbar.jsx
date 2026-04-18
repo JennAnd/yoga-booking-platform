@@ -5,6 +5,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
+import useAuth from "../../hooks/useAuth";
 
 function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -12,7 +13,7 @@ function Navbar() {
   const getNavLinkClassName = ({ isActive }) =>
     isActive ? "navbar__link navbar__link--active" : "navbar__link";
 
-  const isLoggedIn = false;
+  const { isLoggedIn, logout } = useAuth();
 
   const toggleMenu = () => {
     setIsMenuOpen((currentState) => !currentState);
@@ -74,7 +75,11 @@ function Navbar() {
                   >
                     Profile
                   </NavLink>
-                  <button type="button" className="navbar__auth-button">
+                  <button
+                    type="button"
+                    className="navbar__auth-button"
+                    onClick={logout}
+                  >
                     Logout
                   </button>
                 </>
