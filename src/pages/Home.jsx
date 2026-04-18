@@ -6,9 +6,11 @@
 import Button from "../components/ui/Button";
 import ClassCard from "../components/classes/ClassCard";
 import { classes } from "../data/classes";
+import { instructors } from "../data/instructors";
 
 function Home() {
   const featuredClasses = classes.filter((yogaClass) => yogaClass.isFeatured);
+  const featuredInstructors = instructors;
 
   return (
     <section className="home-page">
@@ -84,6 +86,38 @@ function Home() {
               without friction.
             </p>
           </article>
+        </div>
+      </section>
+
+      <section
+        className="home-instructors"
+        aria-labelledby="home-instructors-title"
+      >
+        <div className="home-instructors__header">
+          <p className="home-instructors__eyebrow">Meet the instructors</p>
+          <h2 id="home-instructors-title">
+            Experienced teachers with different rhythms and strengths.
+          </h2>
+        </div>
+
+        <div className="home-instructors__grid">
+          {featuredInstructors.map((instructor) => (
+            <article key={instructor.id} className="home-instructor-card">
+              <img
+                className="home-instructor-card__image"
+                src={instructor.image}
+                alt={instructor.name}
+              />
+
+              <div className="home-instructor-card__content">
+                <h3>{instructor.name}</h3>
+                <p className="home-instructor-card__specialty">
+                  {instructor.specialty}
+                </p>
+                <p className="home-instructor-card__bio">{instructor.bio}</p>
+              </div>
+            </article>
+          ))}
         </div>
       </section>
 
