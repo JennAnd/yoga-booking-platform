@@ -44,6 +44,49 @@ function Home() {
         </p>
       </div>
 
+      <section className="home-benefits" aria-labelledby="home-benefits-title">
+        <div className="home-benefits__top">
+          <div className="home-benefits__header">
+            <p className="home-benefits__eyebrow">Why Still Studio</p>
+            <h2 id="home-benefits-title">
+              A calm booking experience from start to finish.
+            </h2>
+          </div>
+
+          <div className="home-benefits__media" aria-hidden="true">
+            <div className="home-benefits__image-placeholder">
+              <span>Benefits image placeholder</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="home-benefits__grid">
+          <article className="home-benefit-card">
+            <h3>Clear class information</h3>
+            <p>
+              Browse class types, levels, instructors, availability, and pricing
+              in one place.
+            </p>
+          </article>
+
+          <article className="home-benefit-card">
+            <h3>Classes for every rhythm</h3>
+            <p>
+              Explore heated flow, slower recovery sessions, breathwork,
+              meditation, and Ashtanga.
+            </p>
+          </article>
+
+          <article className="home-benefit-card">
+            <h3>Simple booking flow</h3>
+            <p>
+              Find a class quickly, reserve your spot, and manage your sessions
+              without friction.
+            </p>
+          </article>
+        </div>
+      </section>
+
       <div className="home-featured">
         <div className="home-featured__header">
           <h2>Featured classes</h2>

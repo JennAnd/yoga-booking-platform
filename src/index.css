@@ -437,6 +437,7 @@ a {
 .home-intro {
   display: grid;
   justify-items: center;
+  padding-bottom: var(--space-2);
 }
 
 .home-intro__text {
@@ -446,6 +447,82 @@ a {
   font-size: 1rem;
   line-height: 1.6;
   text-align: center;
+}
+
+.home-benefits {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.home-benefits__top {
+  display: grid;
+  gap: var(--space-5);
+  padding-top: var(--space-4);
+}
+
+.home-benefits__media {
+  display: grid;
+}
+
+.home-benefits__image-placeholder {
+  display: grid;
+  place-items: center;
+  min-height: 320px;
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(rgba(111, 87, 77, 0.08), rgba(111, 87, 77, 0.08)),
+    var(--color-surface-muted);
+  color: var(--color-text-muted);
+  font-size: 0.95rem;
+}
+
+.home-benefits__header {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.home-benefits__eyebrow {
+  margin: 0;
+  color: var(--color-primary-dark);
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.home-benefits__header h2 {
+  margin: 0;
+  max-width: 12ch;
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.05;
+}
+
+.home-benefits__grid {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.home-benefit-card {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  background-color: rgba(253, 250, 246, 0.78);
+  border: 1px solid rgba(111, 87, 77, 0.08);
+  border-radius: var(--radius-xl);
+}
+
+.home-benefit-card h3 {
+  margin: 0;
+  font-size: 1.6rem;
+  line-height: 1.1;
+  color: var(--color-primary-dark);
+}
+
+.home-benefit-card p {
+  margin: 0;
+  color: #5f4f46;
+  font-size: 0.98rem;
+  line-height: 1.5;
 }
 
 .home-featured {
@@ -607,6 +684,10 @@ a {
 /* ---------------------------------- */
 
 @media (min-width: 768px) {
+  .home-benefits__grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
   .class-card {
     grid-template-columns: 280px 1fr;
   }
@@ -669,6 +750,11 @@ a {
   .class-details__image {
     height: 100%;
     aspect-ratio: auto;
+  }
+
+  .home-benefits__top {
+    grid-template-columns: 0.9fr 1.1fr;
+    align-items: stretch;
   }
 }
 
