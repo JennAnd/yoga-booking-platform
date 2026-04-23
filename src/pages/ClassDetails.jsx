@@ -13,8 +13,14 @@ import { getAvailabilityBadgeVariant } from "../utils/getAvailabilityBadgeVarian
 
 function ClassDetails() {
   const { id } = useParams();
-  const { user, bookClass, cancelBooking, joinWaitlist, leaveWaitlist } =
-    useAuth();
+  const {
+    user,
+    bookClass,
+    cancelBooking,
+    joinWaitlist,
+    leaveWaitlist,
+    toggleFavorite,
+  } = useAuth();
 
   const [feedback, setFeedback] = useState({
     type: "",
@@ -23,6 +29,7 @@ function ClassDetails() {
 
   const yogaClass = classes.find((currentClass) => currentClass.id === id);
   const isBooked = user?.bookings.includes(yogaClass?.id);
+  const isFavorite = user?.favorites.includes(yogaClass?.id);
   const isWaitlisted = user?.waitlist.includes(yogaClass?.id);
   const isLoggedIn = Boolean(user);
   const isClassFull = yogaClass?.availableSpots === 0;
@@ -56,6 +63,17 @@ function ClassDetails() {
         type: "success",
         message: "Your class has been booked successfully.",
       });
+    } catch (error) {
+      setFeedback({
+        type: "error",
+        message: error.message,
+      });
+    }
+  };
+
+  const handleToggleFavorite = () => {
+    try {
+      toggleFavorite(yogaClass.id);
     } catch (error) {
       setFeedback({
         type: "error",
@@ -122,7 +140,22 @@ function ClassDetails() {
         </Link>
         <p className="class-details__eyebrow">{yogaClass.studio}</p>
 
-        <h1 className="class-details__title">{yogaClass.title}</h1>
+        <div className="class-details__title-row">
+          <h1 className="class-details__title">{yogaClass.title}</h1>
+
+          <button
+            type="button"
+            className={`class-details__favorite-button ${
+              isFavorite ? "class-details__favorite-button--active" : ""
+            }`}
+            onClick={handleToggleFavorite}
+            aria-label={
+              isFavorite ? "Remove from favorites" : "Save as favorite"
+            }
+          >
+            {isFavorite ? "♥" : "♡"}
+          </button>
+        </div>
 
         <div className="class-details__badges">
           <Badge variant={levelBadgeVariant}>{yogaClass.level}</Badge>

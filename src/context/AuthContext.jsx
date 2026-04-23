@@ -136,6 +136,23 @@ function AuthProvider({ children }) {
     updateStoredUser(updatedUser);
   };
 
+  const toggleFavorite = (classId) => {
+    if (!user) {
+      throw new Error("You need to be logged in to save favorites.");
+    }
+
+    const isFavorite = user.favorites.includes(classId);
+
+    const updatedUser = {
+      ...user,
+      favorites: isFavorite
+        ? user.favorites.filter((currentClassId) => currentClassId !== classId)
+        : [...user.favorites, classId],
+    };
+
+    updateStoredUser(updatedUser);
+  };
+
   const value = useMemo(
     () => ({
       user,
@@ -147,6 +164,7 @@ function AuthProvider({ children }) {
       cancelBooking,
       joinWaitlist,
       leaveWaitlist,
+      toggleFavorite,
     }),
     [user],
   );
