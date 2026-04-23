@@ -4,19 +4,42 @@
  */
 
 import useAuth from "../hooks/useAuth";
+import { classes } from "../data/classes";
+import profileHeroImage from "../assets/profile-hero.webp";
 
 function Profile() {
   const { user } = useAuth();
+  const bookedClasses = user.bookings
+    .map((classId) =>
+      classes.find((currentClass) => currentClass.id === classId),
+    )
+    .filter(Boolean);
+
+  const waitlistedClasses = user.waitlist
+    .map((classId) =>
+      classes.find((currentClass) => currentClass.id === classId),
+    )
+    .filter(Boolean);
 
   return (
     <section className="profile-page">
       <div className="profile-page__hero">
-        <p className="profile-page__eyebrow">My profile</p>
-        <h1 className="profile-page__title">Welcome back, {user.firstName}.</h1>
-        <p className="profile-page__description">
-          Manage your membership, review your details, and keep track of your
-          activity at Still Studio.
-        </p>
+        <div className="profile-page__hero-content">
+          <p className="profile-page__eyebrow">My profile</p>
+          <h1 className="profile-page__title">
+            Welcome back, {user.firstName}.
+          </h1>
+          <p className="profile-page__description">
+            Manage your membership, review your details, and keep track of your
+            activity at Still Studio.
+          </p>
+        </div>
+
+        <img
+          className="profile-page__hero-image"
+          src={profileHeroImage}
+          alt="Still Studio profile overview"
+        />
       </div>
 
       <div className="profile-page__grid">
@@ -42,7 +65,45 @@ function Profile() {
 
         <article className="profile-card">
           <h2>Bookings</h2>
-          <p>You have no upcoming bookings yet.</p>
+          {bookedClasses.length > 0 ? (
+            <div className="profile-class-list">
+              {bookedClasses.map((yogaClass) => (
+                <div key={yogaClass.id} className="profile-class-item">
+                  <h3>{yogaClass.title}</h3>
+                  <p>
+                    {yogaClass.date} • {yogaClass.time}
+                  </p>
+                  <p>
+                    {yogaClass.instructor} • {yogaClass.location}
+                  </p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p>You have no upcoming bookings yet.</p>
+          )}
+        </article>
+
+        <article className="profile-card">
+          <h2>Waitlist</h2>
+
+          {waitlistedClasses.length > 0 ? (
+            <div className="profile-class-list">
+              {waitlistedClasses.map((yogaClass) => (
+                <div key={yogaClass.id} className="profile-class-item">
+                  <h3>{yogaClass.title}</h3>
+                  <p>
+                    {yogaClass.date} • {yogaClass.time}
+                  </p>
+                  <p>
+                    {yogaClass.instructor} • {yogaClass.location}
+                  </p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p>Your waitlist is empty right now.</p>
+          )}
         </article>
 
         <article className="profile-card">
