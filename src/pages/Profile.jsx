@@ -8,7 +8,7 @@ import { classes } from "../data/classes";
 import profileHeroImage from "../assets/profile-hero.webp";
 
 function Profile() {
-  const { user } = useAuth();
+  const { user, toggleFavorite } = useAuth();
   const bookedClasses = user.bookings
     .map((classId) =>
       classes.find((currentClass) => currentClass.id === classId),
@@ -20,6 +20,20 @@ function Profile() {
       classes.find((currentClass) => currentClass.id === classId),
     )
     .filter(Boolean);
+
+  const favoriteClasses = user.favorites
+    .map((classId) =>
+      classes.find((currentClass) => currentClass.id === classId),
+    )
+    .filter(Boolean);
+
+  const handleRemoveFavorite = (classId) => {
+    try {
+      toggleFavorite(classId);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
   return (
     <section className="profile-page">
@@ -108,7 +122,36 @@ function Profile() {
 
         <article className="profile-card">
           <h2>Favorites</h2>
-          <p>Your saved classes will appear here later.</p>
+
+          {favoriteClasses.length > 0 ? (
+            <div className="profile-class-list">
+              {favoriteClasses.map((yogaClass) => (
+                <div key={yogaClass.id} className="profile-class-item">
+                  <div className="profile-class-item__top">
+                    <h3>{yogaClass.title}</h3>
+
+                    <button
+                      type="button"
+                      className="profile-class-item__favorite-button"
+                      onClick={() => handleRemoveFavorite(yogaClass.id)}
+                      aria-label="Remove from favorites"
+                    >
+                      ♥
+                    </button>
+                  </div>
+
+                  <p>
+                    {yogaClass.date} • {yogaClass.time}
+                  </p>
+                  <p>
+                    {yogaClass.instructor} • {yogaClass.location}
+                  </p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p>You have no saved classes yet.</p>
+          )}
         </article>
       </div>
     </section>
