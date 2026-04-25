@@ -3,7 +3,12 @@
  * The app represents one studio with multiple rooms, class types, and booking options.
  */
 
-import placeholderImage from "../assets/placeholder.png";
+import ashtangaImage from "../assets/ashtanga.webp";
+import hathaImage from "../assets/hatha.webp";
+import breathworkImage from "../assets/breathwork.webp";
+import meditationImage from "../assets/meditation.webp";
+import vinyasaImage from "../assets/vinyasa.webp";
+import yinImage from "../assets/yin.webp";
 
 export const classes = [
   {
@@ -11,11 +16,11 @@ export const classes = [
     title: "Hot Vinyasa Flow",
     type: "Hot Vinyasa",
     level: "Beginner",
-    instructor: "Emma Lind",
+    instructor: "Elin Sorelli",
     date: "2026-04-20",
     time: "08:00",
     duration: 60,
-    image: placeholderImage,
+    image: vinyasaImage,
     description:
       "A heated morning flow designed to build strength, mobility, and focus through breath-led movement.",
     availableSpots: 3,
@@ -31,11 +36,11 @@ export const classes = [
     title: "Evening Yin Reset",
     type: "Yin Yoga",
     level: "All Levels",
-    instructor: "Sofia Berg",
+    instructor: "Luca Virelli",
     date: "2026-04-21",
     time: "18:30",
     duration: 75,
-    image: placeholderImage,
+    image: yinImage,
     description:
       "A slower evening class focused on release, recovery, and deep rest after a busy day.",
     availableSpots: 0,
@@ -51,11 +56,11 @@ export const classes = [
     title: "Hot Hatha Balance",
     type: "Hot Hatha",
     level: "Intermediate",
-    instructor: "Clara Nyström",
+    instructor: "Maja Lior",
     date: "2026-04-22",
     time: "12:00",
     duration: 60,
-    image: placeholderImage,
+    image: hathaImage,
     description:
       "A steady heated class with classic postures, longer holds, and a focus on alignment and control.",
     availableSpots: 8,
@@ -71,11 +76,11 @@ export const classes = [
     title: "Breathwork & Grounding",
     type: "Breathwork",
     level: "Beginner",
-    instructor: "Maja Holm",
+    instructor: "Noah Elden",
     date: "2026-04-23",
     time: "07:30",
     duration: 45,
-    image: placeholderImage,
+    image: breathworkImage,
     description:
       "A guided breath-led class that combines simple grounding practices with calm movement.",
     availableSpots: 2,
@@ -91,11 +96,11 @@ export const classes = [
     title: "Ashtanga Foundations",
     type: "Ashtanga",
     level: "Beginner",
-    instructor: "Nora Ek",
+    instructor: "Arvid Solberg",
     date: "2026-04-24",
     time: "17:30",
     duration: 60,
-    image: placeholderImage,
+    image: ashtangaImage,
     description:
       "An introduction to core Ashtanga principles, including breath, posture transitions, and foundational standing shapes.",
     availableSpots: 10,
@@ -111,11 +116,11 @@ export const classes = [
     title: "Deep Rest Meditation",
     type: "Meditation",
     level: "All Levels",
-    instructor: "Elin Sjöberg",
+    instructor: "Nova Ahlgren",
     date: "2026-04-25",
     time: "19:00",
     duration: 45,
-    image: placeholderImage,
+    image: meditationImage,
     description:
       "A calming guided meditation session focused on nervous system regulation, presence, and intentional rest.",
     availableSpots: 0,
@@ -131,11 +136,11 @@ export const classes = [
     title: "Weekend Hot Vinyasa",
     type: "Hot Vinyasa",
     level: "Intermediate",
-    instructor: "Emma Lind",
+    instructor: "Elin Sorelli",
     date: "2026-04-26",
     time: "10:30",
     duration: 75,
-    image: placeholderImage,
+    image: vinyasaImage,
     description:
       "A stronger weekend class with flowing sequences, heat-building movement, and a clear rhythmic pace.",
     availableSpots: 5,
@@ -151,11 +156,11 @@ export const classes = [
     title: "Ashtanga Led Primary",
     type: "Ashtanga",
     level: "Advanced",
-    instructor: "Nora Ek",
+    instructor: "Arvid Solberg",
     date: "2026-04-27",
     time: "06:45",
     duration: 75,
-    image: placeholderImage,
+    image: ashtangaImage,
     description:
       "A led primary series practice for students who are comfortable with a stronger and more structured Ashtanga flow.",
     availableSpots: 1,

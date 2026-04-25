@@ -3,49 +3,54 @@
  * Can later be used for instructor bios, profile sections, and related class details.
  */
 
-import placeholderImage from "../assets/placeholder.png";
+import elinImage from "../assets/elin.webp";
+import majaImage from "../assets/maja.webp";
+import novaImage from "../assets/nova.webp";
+import lucaImage from "../assets/luca.webp";
+import noahImage from "../assets/noah.webp";
+import arvidImage from "../assets/arvid.webp";
 
 export const instructors = [
   {
-    id: "emma-lind",
-    name: "Emma Lind",
+    id: "elin-sorelli",
+    name: "Elin Sorelli",
     specialty: "Hot Vinyasa & Flow",
-    bio: "Emma teaches energizing flow classes with a focus on breath, consistency, and accessible progression.",
-    image: placeholderImage,
+    bio: "Elin teaches energizing flow classes with a focus on breath, consistency, and accessible progression.",
+    image: elinImage,
   },
   {
-    id: "sofia-berg",
-    name: "Sofia Berg",
+    id: "luca-virelli",
+    name: "Luca Virelli",
     specialty: "Yin Yoga & Recovery",
-    bio: "Sofia leads slower classes designed to support flexibility, recovery, and a calmer nervous system.",
-    image: placeholderImage,
+    bio: "Luca leads slower classes designed to support flexibility, recovery, and a calmer nervous system.",
+    image: lucaImage,
   },
   {
-    id: "clara-nystrom",
-    name: "Clara Nyström",
+    id: "maja-lior",
+    name: "Maja Lior",
     specialty: "Hot Hatha & Alignment",
-    bio: "Clara teaches structured, alignment-focused classes that help students build strength and steady technique.",
-    image: placeholderImage,
+    bio: "Maja teaches structured, alignment-focused classes that help students build strength and steady technique.",
+    image: majaImage,
   },
   {
-    id: "maja-holm",
-    name: "Maja Holm",
+    id: "noah-elden",
+    name: "Noah Elden",
     specialty: "Breathwork & Grounding",
-    bio: "Maja combines guided breathing and calming movement to create classes that feel centered and restorative.",
-    image: placeholderImage,
+    bio: "Noah combines guided breathing and calming movement to create classes that feel centered and restorative.",
+    image: noahImage,
   },
   {
-    id: "nora-ek",
-    name: "Nora Ek",
+    id: "arvid-solberg",
+    name: "Arvid Solberg",
     specialty: "Ashtanga & Strength",
-    bio: "Nora leads dynamic practices with clear structure, strong sequencing, and a focus on control and discipline.",
-    image: placeholderImage,
+    bio: "Arvid leads dynamic practices with clear structure, strong sequencing, and a focus on control and discipline.",
+    image: arvidImage,
   },
   {
-    id: "elin-sjoberg",
-    name: "Elin Sjöberg",
+    id: "nova-ahlgren",
+    name: "Nova Ahlgren",
     specialty: "Meditation & Rest",
-    bio: "Elin creates quiet, restorative sessions centered on mindfulness, rest, and intentional slowing down.",
-    image: placeholderImage,
+    bio: "Nova creates quiet, restorative sessions centered on mindfulness, rest, and intentional slowing down.",
+    image: novaImage,
   },
 ];

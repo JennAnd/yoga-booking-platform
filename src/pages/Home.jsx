@@ -7,6 +7,8 @@ import Button from "../components/ui/Button";
 import ClassCard from "../components/classes/ClassCard";
 import { classes } from "../data/classes";
 import { instructors } from "../data/instructors";
+import heroImage from "../assets/hero.webp";
+import benefitsImage from "../assets/benefits.webp";
 
 function Home() {
   const featuredClasses = classes.filter((yogaClass) => yogaClass.isFeatured);
@@ -32,10 +34,12 @@ function Home() {
           </div>
         </div>
 
-        <div className="home-hero__media" aria-hidden="true">
-          <div className="home-hero__image-placeholder">
-            <span>Hero image placeholder</span>
-          </div>
+        <div className="home-hero__media">
+          <img
+            className="home-hero__image"
+            src={heroImage}
+            alt="Warm yoga studio with mats and bolsters"
+          />
         </div>
       </div>
 
@@ -55,10 +59,12 @@ function Home() {
             </h2>
           </div>
 
-          <div className="home-benefits__media" aria-hidden="true">
-            <div className="home-benefits__image-placeholder">
-              <span>Benefits image placeholder</span>
-            </div>
+          <div className="home-benefits__media">
+            <img
+              className="home-benefits__image"
+              src={benefitsImage}
+              alt="Calm wellness studio atmosphere with warm light"
+            />
           </div>
         </div>
 
