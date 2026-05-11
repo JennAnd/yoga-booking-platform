@@ -14,6 +14,7 @@ function ClassCard({ yogaClass }) {
   const { user, toggleFavorite, classAvailability } = useAuth();
   const availableSpots =
     classAvailability?.[yogaClass.id] ?? yogaClass.availableSpots;
+
   const isPastClass = hasClassPassed(yogaClass);
   const availabilityStatus = getAvailabilityStatus(availableSpots);
   const availabilityBadgeVariant = getAvailabilityBadgeVariant(availableSpots);
@@ -88,6 +89,10 @@ function ClassCard({ yogaClass }) {
           </p>
 
           <p className="class-card__description">{yogaClass.description}</p>
+
+          <p className="class-card__meta">
+            {availableSpots} of {yogaClass.totalSpots} spots available
+          </p>
 
           <p className="class-card__price">
             Drop-in: {yogaClass.dropInPrice} SEK

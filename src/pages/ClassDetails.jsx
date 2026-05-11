@@ -188,6 +188,10 @@ function ClassDetails() {
           {yogaClass.location} • Drop-in: {yogaClass.dropInPrice} SEK
         </p>
 
+        <p className="class-details__meta">
+          {availableSpots} of {yogaClass.totalSpots} spots available
+        </p>
+
         <p className="class-details__description">{yogaClass.description}</p>
         <div className="class-details__booking-actions">
           <h2 className="class-details__booking-title">Booking</h2>

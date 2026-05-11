@@ -10,7 +10,7 @@ export const AuthContext = createContext(null);
 
 function createInitialClassAvailability() {
   return classes.reduce((availability, yogaClass) => {
-    availability[yogaClass.id] = yogaClass.availableSpots;
+    availability[yogaClass.id] = yogaClass.totalSpots;
 
     return availability;
   }, {});
@@ -97,6 +97,19 @@ function AuthProvider({ children }) {
       throw new Error("You have already booked this class.");
     }
 
+    const selectedClass = classes.find((yogaClass) => yogaClass.id === classId);
+
+    if (!selectedClass) {
+      throw new Error("Class not found.");
+    }
+
+    const availableSpots =
+      classAvailability[classId] ?? selectedClass.totalSpots;
+
+    if (availableSpots <= 0) {
+      throw new Error("This class is fully booked.");
+    }
+
     const updatedUser = {
       ...user,
       bookings: [...user.bookings, classId],
@@ -104,6 +117,11 @@ function AuthProvider({ children }) {
         (currentClassId) => currentClassId !== classId,
       ),
     };
+
+    setClassAvailability((currentAvailability) => ({
+      ...currentAvailability,
+      [classId]: availableSpots - 1,
+    }));
 
     updateStoredUser(updatedUser);
   };
@@ -113,12 +131,32 @@ function AuthProvider({ children }) {
       throw new Error("You need to be logged in to manage bookings.");
     }
 
+    const selectedClass = classes.find((yogaClass) => yogaClass.id === classId);
+
+    if (!selectedClass) {
+      throw new Error("Class not found.");
+    }
+
+    const isBooked = user.bookings.includes(classId);
+
+    if (!isBooked) {
+      throw new Error("You do not have a booking for this class.");
+    }
+
+    const availableSpots =
+      classAvailability[classId] ?? selectedClass.totalSpots;
+
     const updatedUser = {
       ...user,
       bookings: user.bookings.filter(
         (currentClassId) => currentClassId !== classId,
       ),
     };
+
+    setClassAvailability((currentAvailability) => ({
+      ...currentAvailability,
+      [classId]: Math.min(availableSpots + 1, selectedClass.totalSpots),
+    }));
 
     updateStoredUser(updatedUser);
   };
