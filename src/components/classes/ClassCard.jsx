@@ -11,12 +11,12 @@ import useAuth from "../../hooks/useAuth";
 import { hasClassPassed } from "../../utils/classTime";
 
 function ClassCard({ yogaClass }) {
+  const { user, toggleFavorite, classAvailability } = useAuth();
+  const availableSpots =
+    classAvailability?.[yogaClass.id] ?? yogaClass.availableSpots;
   const isPastClass = hasClassPassed(yogaClass);
-  const availabilityStatus = getAvailabilityStatus(yogaClass.availableSpots);
-  const availabilityBadgeVariant = getAvailabilityBadgeVariant(
-    yogaClass.availableSpots,
-  );
-  const { user, toggleFavorite } = useAuth();
+  const availabilityStatus = getAvailabilityStatus(availableSpots);
+  const availabilityBadgeVariant = getAvailabilityBadgeVariant(availableSpots);
   const isFavorite = user?.favorites.includes(yogaClass.id);
 
   const levelBadgeVariant =

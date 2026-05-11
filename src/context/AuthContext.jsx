@@ -4,11 +4,30 @@
  */
 
 import { createContext, useEffect, useMemo, useState } from "react";
+import { classes } from "../data/classes";
 
 export const AuthContext = createContext(null);
 
+function createInitialClassAvailability() {
+  return classes.reduce((availability, yogaClass) => {
+    availability[yogaClass.id] = yogaClass.availableSpots;
+
+    return availability;
+  }, {});
+}
+
 function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
+
+  const [classAvailability, setClassAvailability] = useState(() => {
+    const storedAvailability = localStorage.getItem(
+      "still-studio-availability",
+    );
+
+    return storedAvailability
+      ? JSON.parse(storedAvailability)
+      : createInitialClassAvailability();
+  });
 
   useEffect(() => {
     const storedUser = localStorage.getItem("still-studio-user");
@@ -17,6 +36,13 @@ function AuthProvider({ children }) {
       setUser(JSON.parse(storedUser));
     }
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem(
+      "still-studio-availability",
+      JSON.stringify(classAvailability),
+    );
+  }, [classAvailability]);
 
   const updateStoredUser = (updatedUser) => {
     localStorage.setItem("still-studio-user", JSON.stringify(updatedUser));
@@ -157,6 +183,8 @@ function AuthProvider({ children }) {
     () => ({
       user,
       isLoggedIn: Boolean(user),
+      classAvailability,
+      setClassAvailability,
       login,
       register,
       logout,
@@ -166,7 +194,7 @@ function AuthProvider({ children }) {
       leaveWaitlist,
       toggleFavorite,
     }),
-    [user],
+    [user, classAvailability],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -16,6 +16,7 @@ function ClassDetails() {
   const { id } = useParams();
   const {
     user,
+    classAvailability,
     bookClass,
     cancelBooking,
     joinWaitlist,
@@ -43,14 +44,16 @@ function ClassDetails() {
   const isFavorite = user?.favorites.includes(yogaClass.id);
   const isWaitlisted = user?.waitlist.includes(yogaClass.id);
   const isLoggedIn = Boolean(user);
-  const isClassFull = yogaClass.availableSpots === 0;
+
+  const availableSpots =
+    classAvailability?.[yogaClass.id] ?? yogaClass.availableSpots;
+
+  const isClassFull = availableSpots === 0;
   const isPastClass = hasClassPassed(yogaClass);
   const bookingIsOpen = isBookingOpen(yogaClass);
 
-  const availabilityStatus = getAvailabilityStatus(yogaClass.availableSpots);
-  const availabilityBadgeVariant = getAvailabilityBadgeVariant(
-    yogaClass.availableSpots,
-  );
+  const availabilityStatus = getAvailabilityStatus(availableSpots);
+  const availabilityBadgeVariant = getAvailabilityBadgeVariant(availableSpots);
 
   const levelBadgeVariant =
     yogaClass.level === "Beginner"
