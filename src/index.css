@@ -722,6 +722,42 @@ a {
   box-shadow: none;
 }
 
+.classes-page__period-tabs {
+  display: inline-flex;
+  gap: var(--space-2);
+  padding: 0.35rem;
+  border: 1px solid var(--color-border);
+  border-radius: 999px;
+  background-color: var(--color-surface-muted);
+}
+
+.classes-page__period-tab {
+  border: none;
+  border-radius: 999px;
+  background-color: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 0.65rem 1rem;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.classes-page__period-tab:hover,
+.classes-page__period-tab:focus-visible {
+  color: var(--color-text);
+}
+
+.classes-page__period-tab--active {
+  background-color: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: var(--shadow-sm);
+}
+
 .classes-page__date-tabs {
   display: flex;
   gap: var(--space-2);

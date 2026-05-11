@@ -19,17 +19,34 @@ function Classes() {
     date: "all",
   });
 
-  const classDates = useMemo(() => {
+  // Tracks which schedule period is selected: 0 = upcoming week, 1 = following week
+  const [selectedPeriod, setSelectedPeriod] = useState(0);
+
+  // Creates a sorted list of all unique class dates
+  const allClassDates = useMemo(() => {
     return [...new Set(classes.map((yogaClass) => yogaClass.date))].sort();
   }, []);
+
+  // Shows 7 dates at a time based on the selected schedule period
+  const periodDates = useMemo(() => {
+    const startIndex = selectedPeriod * 7;
+    const endIndex = startIndex + 7;
+
+    return allClassDates.slice(startIndex, endIndex);
+  }, [allClassDates, selectedPeriod]);
 
   const filteredClasses = useMemo(() => {
     const filteredBySearchTypeAndLevel = filterClasses(classes, filters);
 
+    // Keeps only the classes that belong to the selected schedule period
+    const filteredByPeriod = filteredBySearchTypeAndLevel.filter((yogaClass) =>
+      periodDates.includes(yogaClass.date),
+    );
+
     const filteredByDate =
       filters.date === "all"
-        ? filteredBySearchTypeAndLevel
-        : filteredBySearchTypeAndLevel.filter(
+        ? filteredByPeriod
+        : filteredByPeriod.filter(
             (yogaClass) => yogaClass.date === filters.date,
           );
 
@@ -44,7 +61,7 @@ function Classes() {
 
       return firstDate - secondDate;
     });
-  }, [filters]);
+  }, [filters, periodDates]);
 
   const groupedClasses = filteredClasses.reduce((groups, yogaClass) => {
     const date = yogaClass.date;
@@ -75,6 +92,42 @@ function Classes() {
       </div>
 
       <div className="classes-page__filters">
+        <div
+          className="classes-page__period-tabs"
+          aria-label="Choose schedule period"
+        >
+          <button
+            type="button"
+            className={`classes-page__period-tab ${
+              selectedPeriod === 0 ? "classes-page__period-tab--active" : ""
+            }`}
+            onClick={() => {
+              setSelectedPeriod(0);
+              setFilters((currentFilters) => ({
+                ...currentFilters,
+                date: "all",
+              }));
+            }}
+          >
+            Upcoming week
+          </button>
+
+          <button
+            type="button"
+            className={`classes-page__period-tab ${
+              selectedPeriod === 1 ? "classes-page__period-tab--active" : ""
+            }`}
+            onClick={() => {
+              setSelectedPeriod(1);
+              setFilters((currentFilters) => ({
+                ...currentFilters,
+                date: "all",
+              }));
+            }}
+          >
+            Following week
+          </button>
+        </div>
         <Input
           id="search"
           name="search"
@@ -103,7 +156,7 @@ function Classes() {
             All dates
           </button>
 
-          {classDates.map((date) => (
+          {periodDates.map((date) => (
             <button
               key={date}
               type="button"
