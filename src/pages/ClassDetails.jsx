@@ -10,6 +10,7 @@ import useAuth from "../hooks/useAuth";
 import { classes } from "../data/classes";
 import { getAvailabilityStatus } from "../utils/getAvailabilityStatus";
 import { getAvailabilityBadgeVariant } from "../utils/getAvailabilityBadgeVariant";
+import { hasClassPassed } from "../utils/classTime";
 
 function ClassDetails() {
   const { id } = useParams();
@@ -28,11 +29,6 @@ function ClassDetails() {
   });
 
   const yogaClass = classes.find((currentClass) => currentClass.id === id);
-  const isBooked = user?.bookings.includes(yogaClass?.id);
-  const isFavorite = user?.favorites.includes(yogaClass?.id);
-  const isWaitlisted = user?.waitlist.includes(yogaClass?.id);
-  const isLoggedIn = Boolean(user);
-  const isClassFull = yogaClass?.availableSpots === 0;
 
   if (!yogaClass) {
     return (
@@ -42,6 +38,13 @@ function ClassDetails() {
       </section>
     );
   }
+
+  const isBooked = user?.bookings.includes(yogaClass.id);
+  const isFavorite = user?.favorites.includes(yogaClass.id);
+  const isWaitlisted = user?.waitlist.includes(yogaClass.id);
+  const isLoggedIn = Boolean(user);
+  const isClassFull = yogaClass.availableSpots === 0;
+  const isPastClass = hasClassPassed(yogaClass);
 
   const availabilityStatus = getAvailabilityStatus(yogaClass.availableSpots);
   const availabilityBadgeVariant = getAvailabilityBadgeVariant(
@@ -160,7 +163,9 @@ function ClassDetails() {
         <div className="class-details__badges">
           <Badge variant={levelBadgeVariant}>{yogaClass.level}</Badge>
 
-          {availabilityBadgeVariant ? (
+          {isPastClass ? (
+            <Badge variant="neutral">Passed</Badge>
+          ) : availabilityBadgeVariant ? (
             <Badge variant={availabilityBadgeVariant}>
               {availabilityStatus}
             </Badge>
@@ -195,13 +200,17 @@ function ClassDetails() {
             </p>
           ) : null}
 
-          {!isLoggedIn ? (
+          {isPastClass ? (
+            <p className="class-details__booking-note">
+              This class has already passed and can no longer be booked.
+            </p>
+          ) : !isLoggedIn ? (
             <p className="class-details__booking-note">
               Please log in to book this class or join the waitlist.
             </p>
           ) : null}
 
-          {isLoggedIn && !isClassFull && !isBooked ? (
+          {isLoggedIn && !isPastClass && !isClassFull && !isBooked ? (
             <button
               type="button"
               className="ui-button ui-button--primary"
@@ -221,7 +230,11 @@ function ClassDetails() {
             </button>
           ) : null}
 
-          {isLoggedIn && isClassFull && !isBooked && !isWaitlisted ? (
+          {isLoggedIn &&
+          !isPastClass &&
+          isClassFull &&
+          !isBooked &&
+          !isWaitlisted ? (
             <button
               type="button"
               className="ui-button ui-button--secondary"

@@ -8,8 +8,10 @@ import Badge from "../ui/Badge";
 import { getAvailabilityStatus } from "../../utils/getAvailabilityStatus";
 import { getAvailabilityBadgeVariant } from "../../utils/getAvailabilityBadgeVariant";
 import useAuth from "../../hooks/useAuth";
+import { hasClassPassed } from "../../utils/classTime";
 
 function ClassCard({ yogaClass }) {
+  const isPastClass = hasClassPassed(yogaClass);
   const availabilityStatus = getAvailabilityStatus(yogaClass.availableSpots);
   const availabilityBadgeVariant = getAvailabilityBadgeVariant(
     yogaClass.availableSpots,
@@ -67,7 +69,9 @@ function ClassCard({ yogaClass }) {
             <div className="class-card__badges">
               <Badge variant={levelBadgeVariant}>{yogaClass.level}</Badge>
 
-              {availabilityBadgeVariant ? (
+              {isPastClass ? (
+                <Badge variant="neutral">Passed</Badge>
+              ) : availabilityBadgeVariant ? (
                 <Badge variant={availabilityBadgeVariant}>
                   {availabilityStatus}
                 </Badge>

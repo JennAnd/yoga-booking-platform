@@ -1,8 +1,8 @@
 /*
-  Hjälpfunktioner för att skapa verkliga schemadatum.
+  Helper functions for creating real schedule dates.
 
-  Används för att generera datum från dagens datum och framåt,
-  så att klasschemat inte behöver hårdkodade datum.
+  Used to generate dates from today's date and forward,
+  so the class schedule does not need hardcoded dates.
 */
 
 const DAYS_IN_SCHEDULE = 14;

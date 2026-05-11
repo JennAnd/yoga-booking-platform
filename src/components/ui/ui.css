@@ -202,6 +202,11 @@
   color: #8a6842;
 }
 
+.ui-badge--neutral {
+  background-color: #eee8df;
+  color: #6f6257;
+}
+
 /* ---------------------------------- */
 /* Spinner                                      */
 /* Loading indicator                      */
