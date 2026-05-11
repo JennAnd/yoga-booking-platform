@@ -20,7 +20,7 @@ function Classes() {
   });
 
   const classDates = useMemo(() => {
-    return [...new Set(classes.map((yogaClass) => yogaClass.date))];
+    return [...new Set(classes.map((yogaClass) => yogaClass.date))].sort();
   }, []);
 
   const filteredClasses = useMemo(() => {
