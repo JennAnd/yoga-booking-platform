@@ -9,17 +9,54 @@ import Input from "../components/ui/Input";
 import Select from "../components/ui/Select";
 import { classes } from "../data/classes";
 import { filterClasses } from "../utils/filterClasses";
+import { formatScheduleDate } from "../utils/formatScheduleDate";
 
 function Classes() {
   const [filters, setFilters] = useState({
     search: "",
     type: "all",
     level: "all",
+    date: "all",
   });
 
+  const classDates = useMemo(() => {
+    return [...new Set(classes.map((yogaClass) => yogaClass.date))];
+  }, []);
+
   const filteredClasses = useMemo(() => {
-    return filterClasses(classes, filters);
+    const filteredBySearchTypeAndLevel = filterClasses(classes, filters);
+
+    const filteredByDate =
+      filters.date === "all"
+        ? filteredBySearchTypeAndLevel
+        : filteredBySearchTypeAndLevel.filter(
+            (yogaClass) => yogaClass.date === filters.date,
+          );
+
+    return [...filteredByDate].sort((firstClass, secondClass) => {
+      const firstDate = new Date(
+        `${firstClass.date}T${firstClass.time}`,
+      ).getTime();
+
+      const secondDate = new Date(
+        `${secondClass.date}T${secondClass.time}`,
+      ).getTime();
+
+      return firstDate - secondDate;
+    });
   }, [filters]);
+
+  const groupedClasses = filteredClasses.reduce((groups, yogaClass) => {
+    const date = yogaClass.date;
+
+    if (!groups[date]) {
+      groups[date] = [];
+    }
+
+    groups[date].push(yogaClass);
+
+    return groups;
+  }, {});
 
   const handleFilterChange = (event) => {
     const { name, value } = event.target;
@@ -46,6 +83,44 @@ function Classes() {
           value={filters.search}
           onChange={handleFilterChange}
         />
+
+        <div
+          className="classes-page__date-tabs"
+          aria-label="Filter classes by date"
+        >
+          <button
+            type="button"
+            className={`classes-page__date-tab ${
+              filters.date === "all" ? "classes-page__date-tab--active" : ""
+            }`}
+            onClick={() =>
+              setFilters((currentFilters) => ({
+                ...currentFilters,
+                date: "all",
+              }))
+            }
+          >
+            All dates
+          </button>
+
+          {classDates.map((date) => (
+            <button
+              key={date}
+              type="button"
+              className={`classes-page__date-tab ${
+                filters.date === date ? "classes-page__date-tab--active" : ""
+              }`}
+              onClick={() =>
+                setFilters((currentFilters) => ({
+                  ...currentFilters,
+                  date,
+                }))
+              }
+            >
+              {formatScheduleDate(date)}
+            </button>
+          ))}
+        </div>
 
         <Select
           id="type"
@@ -81,13 +156,23 @@ function Classes() {
       </div>
 
       {filteredClasses.length > 0 ? (
-        <ul className="class-card-list">
-          {filteredClasses.map((yogaClass) => (
-            <li key={yogaClass.id}>
-              <ClassCard yogaClass={yogaClass} />
-            </li>
+        <div className="classes-page__schedule">
+          {Object.entries(groupedClasses).map(([date, classesForDate]) => (
+            <section key={date} className="classes-page__schedule-group">
+              <div className="classes-page__schedule-header">
+                <h2>{formatScheduleDate(date)}</h2>
+              </div>
+
+              <ul className="class-card-list">
+                {classesForDate.map((yogaClass) => (
+                  <li key={yogaClass.id}>
+                    <ClassCard yogaClass={yogaClass} />
+                  </li>
+                ))}
+              </ul>
+            </section>
           ))}
-        </ul>
+        </div>
       ) : (
         <div className="page-placeholder">
           <h2>No classes found</h2>
