@@ -93,7 +93,8 @@ function AuthProvider({ children }) {
       lastName,
       email,
       password,
-      membership: "Unlimited Monthly",
+      membership: null,
+      classCredits: 0,
       bookings: [],
       waitlist: [],
       favorites: [],
@@ -103,6 +104,24 @@ function AuthProvider({ children }) {
     setUser(newUser);
   };
 
+  const chooseMembership = (membership) => {
+    if (!user) {
+      throw new Error("You need to be logged in to choose a membership.");
+    }
+
+    const updatedUser = {
+      ...user,
+      membership:
+        membership.type === "unlimited" ? membership : user.membership,
+      classCredits:
+        membership.type === "credits"
+          ? (user.classCredits ?? 0) + membership.credits
+          : (user.classCredits ?? 0),
+    };
+
+    updateStoredUser(updatedUser);
+  };
+
   const logout = () => {
     setUser(null);
   };
@@ -110,6 +129,15 @@ function AuthProvider({ children }) {
   const bookClass = (classId) => {
     if (!user) {
       throw new Error("You need to be logged in to book a class.");
+    }
+
+    const hasUnlimitedMembership = user.membership?.type === "unlimited";
+    const hasClassCredits = (user.classCredits ?? 0) > 0;
+
+    if (!hasUnlimitedMembership && !hasClassCredits) {
+      throw new Error(
+        "You need an active membership or class credits to book classes.",
+      );
     }
 
     const alreadyBooked = user.bookings.includes(classId);
@@ -137,6 +165,10 @@ function AuthProvider({ children }) {
       waitlist: user.waitlist.filter(
         (currentClassId) => currentClassId !== classId,
       ),
+
+      classCredits: hasUnlimitedMembership
+        ? user.classCredits
+        : Math.max((user.classCredits ?? 0) - 1, 0),
     };
 
     setClassAvailability((currentAvailability) => ({
@@ -179,6 +211,11 @@ function AuthProvider({ children }) {
       bookings: user.bookings.filter(
         (currentClassId) => currentClassId !== classId,
       ),
+
+      classCredits:
+        user.membership?.type === "unlimited"
+          ? user.classCredits
+          : (user.classCredits ?? 0) + 1,
     };
 
     setClassAvailability((currentAvailability) => ({
@@ -281,6 +318,7 @@ function AuthProvider({ children }) {
       login,
       register,
       logout,
+      chooseMembership,
       bookClass,
       cancelBooking,
       joinWaitlist,

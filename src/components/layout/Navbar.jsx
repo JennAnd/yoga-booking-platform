@@ -69,12 +69,20 @@ function Navbar() {
               {isLoggedIn ? (
                 <>
                   <NavLink
+                    to="/memberships"
+                    className={getNavLinkClassName}
+                    onClick={closeMenu}
+                  >
+                    Memberships
+                  </NavLink>
+                  <NavLink
                     to="/profile"
                     className={getNavLinkClassName}
                     onClick={closeMenu}
                   >
                     Profile
                   </NavLink>
+
                   <button
                     type="button"
                     className="navbar__auth-button"

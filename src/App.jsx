@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
+import Memberships from "./pages/Memberships";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
             <Route path="/classes/:id" element={<ClassDetails />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/memberships" element={<Memberships />} />
             <Route
               path="/profile"
               element={

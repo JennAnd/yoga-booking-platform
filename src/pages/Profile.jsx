@@ -8,8 +8,13 @@ import { classes } from "../data/classes";
 import profileHeroImage from "../assets/profile-hero.webp";
 
 function Profile() {
-  const { user, toggleFavorite, getWaitlistPosition, leaveWaitlist } =
-    useAuth();
+  const {
+    user,
+    toggleFavorite,
+    getWaitlistPosition,
+    leaveWaitlist,
+    cancelBooking,
+  } = useAuth();
   const bookedClasses = user.bookings
     .map((classId) =>
       classes.find((currentClass) => currentClass.id === classId),
@@ -31,6 +36,14 @@ function Profile() {
   const handleRemoveFavorite = (classId) => {
     try {
       toggleFavorite(classId);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const handleCancelBooking = (classId) => {
+    try {
+      cancelBooking(classId);
     } catch (error) {
       console.error(error.message);
     }
@@ -78,11 +91,24 @@ function Profile() {
 
         <article className="profile-card">
           <h2>Membership</h2>
+
+          {user.membership ? (
+            <>
+              <p>
+                <strong>Plan:</strong> {user.membership.name}
+              </p>
+
+              <p>
+                <strong>Price:</strong> {user.membership.price}{" "}
+                {user.membership.currency}
+              </p>
+            </>
+          ) : (
+            <p>No active unlimited membership.</p>
+          )}
+
           <p>
-            <strong>Plan:</strong> {user.membership}
-          </p>
-          <p>
-            Your current membership gives you access to book studio classes.
+            <strong>Class credits:</strong> {user.classCredits ?? 0}
           </p>
         </article>
 
@@ -99,6 +125,13 @@ function Profile() {
                   <p>
                     {yogaClass.instructor} • {yogaClass.location}
                   </p>
+                  <button
+                    type="button"
+                    className="ui-button ui-button--ghost"
+                    onClick={() => handleCancelBooking(yogaClass.id)}
+                  >
+                    Cancel booking
+                  </button>
                 </div>
               ))}
             </div>
