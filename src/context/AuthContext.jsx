@@ -10,9 +10,18 @@ export const AuthContext = createContext(null);
 
 function createInitialClassAvailability() {
   return classes.reduce((availability, yogaClass) => {
-    availability[yogaClass.id] = yogaClass.totalSpots;
+    availability[yogaClass.id] =
+      yogaClass.availableSpots ?? yogaClass.totalSpots;
 
     return availability;
+  }, {});
+}
+
+function createInitialWaitlists() {
+  return classes.reduce((waitlists, yogaClass) => {
+    waitlists[yogaClass.id] = [];
+
+    return waitlists;
   }, {});
 }
 
@@ -29,6 +38,14 @@ function AuthProvider({ children }) {
       : createInitialClassAvailability();
   });
 
+  const [waitlists, setWaitlists] = useState(() => {
+    const storedWaitlists = localStorage.getItem("still-studio-waitlists");
+
+    return storedWaitlists
+      ? JSON.parse(storedWaitlists)
+      : createInitialWaitlists();
+  });
+
   useEffect(() => {
     const storedUser = localStorage.getItem("still-studio-user");
 
@@ -43,6 +60,10 @@ function AuthProvider({ children }) {
       JSON.stringify(classAvailability),
     );
   }, [classAvailability]);
+
+  useEffect(() => {
+    localStorage.setItem("still-studio-waitlists", JSON.stringify(waitlists));
+  }, [waitlists]);
 
   const updateStoredUser = (updatedUser) => {
     localStorage.setItem("still-studio-user", JSON.stringify(updatedUser));
@@ -123,6 +144,13 @@ function AuthProvider({ children }) {
       [classId]: availableSpots - 1,
     }));
 
+    setWaitlists((currentWaitlists) => ({
+      ...currentWaitlists,
+      [classId]: (currentWaitlists[classId] ?? []).filter(
+        (userId) => userId !== user.id,
+      ),
+    }));
+
     updateStoredUser(updatedUser);
   };
 
@@ -167,7 +195,7 @@ function AuthProvider({ children }) {
     }
 
     const alreadyBooked = user.bookings.includes(classId);
-    const alreadyWaitlisted = user.waitlist.includes(classId);
+    const alreadyWaitlisted = waitlists[classId]?.includes(user.id);
 
     if (alreadyBooked) {
       throw new Error("You have already booked this class.");
@@ -181,6 +209,11 @@ function AuthProvider({ children }) {
       ...user,
       waitlist: [...user.waitlist, classId],
     };
+
+    setWaitlists((currentWaitlists) => ({
+      ...currentWaitlists,
+      [classId]: [...(currentWaitlists[classId] ?? []), user.id],
+    }));
 
     updateStoredUser(updatedUser);
   };
@@ -197,7 +230,29 @@ function AuthProvider({ children }) {
       ),
     };
 
+    setWaitlists((currentWaitlists) => ({
+      ...currentWaitlists,
+      [classId]: (currentWaitlists[classId] ?? []).filter(
+        (userId) => userId !== user.id,
+      ),
+    }));
+
     updateStoredUser(updatedUser);
+  };
+
+  const getWaitlistPosition = (classId) => {
+    if (!user) {
+      return null;
+    }
+
+    const waitlist = waitlists[classId] ?? [];
+    const position = waitlist.indexOf(user.id);
+
+    return position === -1 ? null : position + 1;
+  };
+
+  const getWaitlistCount = (classId) => {
+    return waitlists[classId]?.length ?? 0;
   };
 
   const toggleFavorite = (classId) => {
@@ -231,8 +286,11 @@ function AuthProvider({ children }) {
       joinWaitlist,
       leaveWaitlist,
       toggleFavorite,
+      waitlists,
+      getWaitlistPosition,
+      getWaitlistCount,
     }),
-    [user, classAvailability],
+    [user, classAvailability, waitlists],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

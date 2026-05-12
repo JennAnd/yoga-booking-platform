@@ -22,6 +22,8 @@ function ClassDetails() {
     joinWaitlist,
     leaveWaitlist,
     toggleFavorite,
+    getWaitlistPosition,
+    getWaitlistCount,
   } = useAuth();
 
   const [feedback, setFeedback] = useState({
@@ -43,6 +45,8 @@ function ClassDetails() {
   const isBooked = user?.bookings.includes(yogaClass.id);
   const isFavorite = user?.favorites.includes(yogaClass.id);
   const isWaitlisted = user?.waitlist.includes(yogaClass.id);
+  const waitlistPosition = getWaitlistPosition(yogaClass.id);
+  const waitlistCount = getWaitlistCount(yogaClass.id);
   const isLoggedIn = Boolean(user);
 
   const availableSpots =
@@ -176,6 +180,13 @@ function ClassDetails() {
           ) : null}
         </div>
 
+        {isClassFull ? (
+          <p className="class-details__booking-note">
+            Waitlist: {waitlistCount}{" "}
+            {waitlistCount === 1 ? "person" : "people"}
+          </p>
+        ) : null}
+
         <p className="class-details__meta">
           {yogaClass.type} • {yogaClass.instructor}
         </p>
@@ -269,6 +280,12 @@ function ClassDetails() {
             >
               Leave waitlist
             </button>
+          ) : null}
+
+          {isLoggedIn && isWaitlisted && waitlistPosition ? (
+            <p className="class-details__booking-note">
+              You are number {waitlistPosition} on the waitlist.
+            </p>
           ) : null}
         </div>
       </div>

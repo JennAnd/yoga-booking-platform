@@ -8,7 +8,8 @@ import { classes } from "../data/classes";
 import profileHeroImage from "../assets/profile-hero.webp";
 
 function Profile() {
-  const { user, toggleFavorite } = useAuth();
+  const { user, toggleFavorite, getWaitlistPosition, leaveWaitlist } =
+    useAuth();
   const bookedClasses = user.bookings
     .map((classId) =>
       classes.find((currentClass) => currentClass.id === classId),
@@ -30,6 +31,14 @@ function Profile() {
   const handleRemoveFavorite = (classId) => {
     try {
       toggleFavorite(classId);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const handleLeaveWaitlist = (classId) => {
+    try {
+      leaveWaitlist(classId);
     } catch (error) {
       console.error(error.message);
     }
@@ -112,6 +121,18 @@ function Profile() {
                   <p>
                     {yogaClass.instructor} • {yogaClass.location}
                   </p>
+                  <p>
+                    <strong>Queue position:</strong>{" "}
+                    {getWaitlistPosition(yogaClass.id)}
+                  </p>
+
+                  <button
+                    type="button"
+                    className="ui-button ui-button--ghost"
+                    onClick={() => handleLeaveWaitlist(yogaClass.id)}
+                  >
+                    Leave waitlist
+                  </button>
                 </div>
               ))}
             </div>
