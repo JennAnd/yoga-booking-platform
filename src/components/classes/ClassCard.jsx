@@ -97,6 +97,7 @@ function ClassCard({ yogaClass }) {
           <p className="class-card__price">
             Drop-in: {yogaClass.dropInPrice} SEK
           </p>
+          <span className="class-card__cta">View and book</span>
         </div>
       </article>
     </Link>

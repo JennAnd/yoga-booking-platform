@@ -87,8 +87,13 @@ function Classes() {
   return (
     <section className="classes-page">
       <div className="classes-page__header">
-        <h1>Classes</h1>
-        <p>Browse all available yoga classes at Still Studio.</p>
+        <h1>Find your next practice.</h1>
+
+        <p>
+          Explore heated flow, slower recovery sessions, breathwork, meditation,
+          and grounding practices designed for different rhythms and experience
+          levels.
+        </p>
       </div>
 
       <div className="classes-page__filters">
