@@ -3,6 +3,7 @@
  * Highlights the studio, featured classes, and core calls to action.
  */
 
+import { Link } from "react-router-dom";
 import Button from "../components/ui/Button";
 import { instructors } from "../data/instructors";
 import heroImage from "../assets/hero.webp";
@@ -26,8 +27,13 @@ function Home() {
           </p>
 
           <div className="home-hero__actions">
-            <Button variant="primary">Explore classes</Button>
-            <Button variant="ghost">View schedule</Button>
+            <Link to="/classes">
+              <Button variant="primary">Explore classes</Button>
+            </Link>
+
+            <Link to="/schedule">
+              <Button variant="ghost">View schedule</Button>
+            </Link>
           </div>
         </div>
 

@@ -65,6 +65,14 @@ function Navbar() {
               >
                 Classes
               </NavLink>
+
+              <NavLink
+                to="/schedule"
+                className={getNavLinkClassName}
+                onClick={closeMenu}
+              >
+                Schedule
+              </NavLink>
             </div>
 
             <div className="navbar__right">
