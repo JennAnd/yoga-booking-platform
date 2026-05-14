@@ -3,73 +3,69 @@
  * Presents the class types offered at Still Studio.
  */
 
+import classesHeroImage from "../assets/classes-hero.webp";
+
 function Classes() {
   return (
-    <section className="classes-page">
-      <div className="classes-page__header">
-        <h1>Explore our class types.</h1>
+    <section className="classes-page classes-page--info">
+      <img
+        className="classes-page__hero-image"
+        src={classesHeroImage}
+        alt="Warm yoga props in a calm studio setting"
+      />
 
-        <p>
-          From heated flow to slower recovery sessions, Still Studio offers
-          practices for different rhythms, energy levels, and experience.
-        </p>
-      </div>
-
-      <section
-        className="home-categories"
-        aria-labelledby="classes-types-title"
-      >
-        <div className="home-categories__header">
-          <p className="home-categories__eyebrow">Class types</p>
+      <section className="classes-info" aria-labelledby="classes-types-title">
+        <div className="classes-info__header">
+          <p className="classes-info__eyebrow">Class types</p>
           <h2 id="classes-types-title">
             Find the rhythm that fits your practice.
           </h2>
         </div>
 
-        <div className="home-categories__grid">
-          <article className="home-category-card">
-            <h3>Vinyasa Yoga</h3>
+        <div className="classes-info__grid">
+          <article className="classes-info__item">
+            <h2>Vinyasa Yoga</h2>
             <p>
               Dynamic heated flow classes with strength, rhythm, and breath-led
               movement.
             </p>
           </article>
 
-          <article className="home-category-card">
-            <h3>Hatha Yoga</h3>
+          <article className="classes-info__item">
+            <h2>Hatha Yoga</h2>
             <p>
               Steady, alignment-focused classes with longer holds and a grounded
               pace.
             </p>
           </article>
 
-          <article className="home-category-card">
-            <h3>Yin Yoga</h3>
+          <article className="classes-info__item">
+            <h2>Yin Yoga</h2>
             <p>
               Slower sessions designed for release, recovery, and deeper rest.
             </p>
           </article>
 
-          <article className="home-category-card">
-            <h3>Breathwork</h3>
+          <article className="classes-info__item">
+            <h2>Breathwork</h2>
             <p>
               Simple guided practices that support focus, calm, and nervous
               system balance.
             </p>
           </article>
 
-          <article className="home-category-card">
-            <h3>Meditation</h3>
+          <article className="classes-info__item">
+            <h2>Meditation</h2>
             <p>
               Quiet classes for presence, stillness, and intentional recovery.
             </p>
           </article>
 
-          <article className="home-category-card">
-            <h3>Ashtanga Yoga</h3>
+          <article className="classes-info__item">
+            <h2>Ashtanga Yoga</h2>
             <p>
-              Structured, disciplined practice with strong sequencing and
-              traditional foundations.
+              Structured practice with strong sequencing and traditional
+              foundations.
             </p>
           </article>
         </div>
