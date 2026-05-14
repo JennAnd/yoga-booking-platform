@@ -2,6 +2,8 @@
  * Footer component for the application.
  */
 
+import { Link } from "react-router-dom";
+
 function Footer() {
   return (
     <footer className="site-footer">
@@ -10,16 +12,25 @@ function Footer() {
           <div className="site-footer__brand">
             <p className="site-footer__title">Still Studio</p>
             <p className="site-footer__text">
-              A calm space for heated and non-heated yoga, breathwork, and
-              restorative classes.
+              Yoga, breathwork, and restorative practices in a calm studio
+              setting.
             </p>
           </div>
 
-          <div className="site-footer__links">
-            <a href="#">Instagram</a>
-            <a href="#">Schedule</a>
-            <a href="#">Contact</a>
-          </div>
+          <nav className="site-footer__links" aria-label="Footer navigation">
+            <Link to="/">
+              Home <span aria-hidden="true">›</span>
+            </Link>
+            <Link to="/classes">
+              Classes <span aria-hidden="true">›</span>
+            </Link>
+            <Link to="/schedule">
+              Schedule <span aria-hidden="true">›</span>
+            </Link>
+            <Link to="/memberships">
+              Memberships <span aria-hidden="true">›</span>
+            </Link>
+          </nav>
         </div>
       </div>
     </footer>
