@@ -6,8 +6,10 @@ import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import useAuth from "../../hooks/useAuth";
+import useToast from "../../hooks/useToast";
 
 function Navbar() {
+  const { showToast } = useToast();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const getNavLinkClassName = ({ isActive }) =>
@@ -86,7 +88,11 @@ function Navbar() {
                   <button
                     type="button"
                     className="navbar__auth-button"
-                    onClick={logout}
+                    onClick={() => {
+                      logout();
+                      closeMenu();
+                      showToast("You have been logged out.", "info");
+                    }}
                   >
                     Logout
                   </button>

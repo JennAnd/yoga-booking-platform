@@ -5,10 +5,12 @@
 
 import { memberships } from "../data/memberships";
 import useAuth from "../hooks/useAuth";
+import useToast from "../hooks/useToast";
 import { useState } from "react";
 
 function Memberships() {
   const { user, chooseMembership } = useAuth();
+  const { showToast } = useToast();
   const [selectedMembership, setSelectedMembership] = useState(null);
 
   const handleChooseMembership = (membership) => {
@@ -22,9 +24,13 @@ function Memberships() {
 
     try {
       chooseMembership(selectedMembership);
+      showToast(
+        `${selectedMembership.name} has been added to your account.`,
+        "success",
+      );
       setSelectedMembership(null);
     } catch (error) {
-      console.error(error.message);
+      showToast(error.message, "error");
     }
   };
 

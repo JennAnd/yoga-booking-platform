@@ -8,10 +8,12 @@ import { useNavigate } from "react-router-dom";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import useAuth from "../hooks/useAuth";
+import useToast from "../hooks/useToast";
 
 function Register() {
   const navigate = useNavigate();
   const { register } = useAuth();
+  const { showToast } = useToast();
   const [formValues, setFormValues] = useState({
     firstName: "",
     lastName: "",
@@ -42,6 +44,7 @@ function Register() {
       !formValues.confirmPassword.trim()
     ) {
       setErrorMessage("Please fill in all fields.");
+      showToast("Please fill in all fields.", "error");
       return;
     }
 
@@ -49,20 +52,30 @@ function Register() {
 
     if (!emailPattern.test(formValues.email)) {
       setErrorMessage("Please enter a valid email address.");
+      showToast("Please enter a valid email address.", "error");
       return;
     }
 
     if (formValues.password.length < 8) {
       setErrorMessage("Password must be at least 8 characters long.");
+      showToast("Password must be at least 8 characters long.", "error");
       return;
     }
 
     if (formValues.password !== formValues.confirmPassword) {
       setErrorMessage("Passwords do not match.");
+      showToast("Passwords do not match.", "error");
       return;
     }
-    register(formValues);
-    navigate("/profile");
+
+    try {
+      register(formValues);
+      showToast("Your account has been created.", "success");
+      navigate("/profile");
+    } catch (error) {
+      setErrorMessage(error.message);
+      showToast(error.message, "error");
+    }
   };
 
   return (

@@ -4,6 +4,7 @@
  */
 
 import useAuth from "../hooks/useAuth";
+import useToast from "../hooks/useToast";
 import { classes } from "../data/classes";
 import profileHeroImage from "../assets/profile-hero.webp";
 
@@ -15,6 +16,8 @@ function Profile() {
     leaveWaitlist,
     cancelBooking,
   } = useAuth();
+  const { showToast } = useToast();
+
   const bookedClasses = user.bookings
     .map((classId) =>
       classes.find((currentClass) => currentClass.id === classId),
@@ -36,24 +39,27 @@ function Profile() {
   const handleRemoveFavorite = (classId) => {
     try {
       toggleFavorite(classId);
+      showToast("Class removed from favorites.", "info");
     } catch (error) {
-      console.error(error.message);
+      showToast(error.message, "error");
     }
   };
 
   const handleCancelBooking = (classId) => {
     try {
       cancelBooking(classId);
+      showToast("Your booking has been canceled.", "success");
     } catch (error) {
-      console.error(error.message);
+      showToast(error.message, "error");
     }
   };
 
   const handleLeaveWaitlist = (classId) => {
     try {
       leaveWaitlist(classId);
+      showToast("You have left the waitlist.", "info");
     } catch (error) {
-      console.error(error.message);
+      showToast(error.message, "error");
     }
   };
 

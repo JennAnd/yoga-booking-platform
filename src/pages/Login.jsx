@@ -8,10 +8,12 @@ import { useNavigate } from "react-router-dom";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import useAuth from "../hooks/useAuth";
+import useToast from "../hooks/useToast";
 
 function Login() {
   const navigate = useNavigate();
   const { login } = useAuth();
+  const { showToast } = useToast();
 
   const [formValues, setFormValues] = useState({
     email: "",
@@ -35,6 +37,7 @@ function Login() {
 
     if (!formValues.email.trim() || !formValues.password.trim()) {
       setErrorMessage("Please fill in all fields.");
+      showToast("Please fill in all fields.", "error");
       return;
     }
 
@@ -42,14 +45,17 @@ function Login() {
 
     if (!emailPattern.test(formValues.email)) {
       setErrorMessage("Please enter a valid email address.");
+      showToast("Please enter a valid email address.", "error");
       return;
     }
 
     try {
       login(formValues);
+      showToast("You are now logged in.", "success");
       navigate("/profile");
     } catch (error) {
       setErrorMessage(error.message);
+      showToast(error.message, "error");
     }
   };
 

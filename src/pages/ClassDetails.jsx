@@ -7,6 +7,7 @@ import { useState } from "react";
 import Badge from "../components/ui/Badge";
 import { Link, useParams } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import useToast from "../hooks/useToast";
 import { classes } from "../data/classes";
 import { getAvailabilityStatus } from "../utils/getAvailabilityStatus";
 import { getAvailabilityBadgeVariant } from "../utils/getAvailabilityBadgeVariant";
@@ -26,10 +27,9 @@ function ClassDetails() {
     getWaitlistCount,
   } = useAuth();
 
-  const [feedback, setFeedback] = useState({
-    type: "",
-    message: "",
-  });
+  const [isCancelModalOpen, setIsCancelModalOpen] = useState(false);
+
+  const { showToast } = useToast();
 
   const yogaClass = classes.find((currentClass) => currentClass.id === id);
 
@@ -70,73 +70,57 @@ function ClassDetails() {
   const handleBookClass = () => {
     try {
       bookClass(yogaClass.id);
-      setFeedback({
-        type: "success",
-        message: "Your class has been booked successfully.",
-      });
+      showToast("Your class has been booked successfully.", "success");
     } catch (error) {
-      setFeedback({
-        type: "error",
-        message: error.message,
-      });
+      showToast(error.message, "error");
     }
   };
 
   const handleToggleFavorite = () => {
     try {
       toggleFavorite(yogaClass.id);
+
+      showToast(
+        isFavorite
+          ? "Class removed from favorites."
+          : "Class added to favorites.",
+        "success",
+      );
     } catch (error) {
-      setFeedback({
-        type: "error",
-        message: error.message,
-      });
+      showToast(error.message, "error");
     }
   };
 
   const handleCancelBooking = () => {
     try {
       cancelBooking(yogaClass.id);
-      setFeedback({
-        type: "success",
-        message: "Your booking has been canceled.",
-      });
+      setIsCancelModalOpen(false);
+
+      showToast("Your booking has been canceled.", "success");
     } catch (error) {
-      setFeedback({
-        type: "error",
-        message: error.message,
-      });
+      showToast(error.message, "error");
     }
   };
 
   const handleJoinWaitlist = () => {
     try {
       joinWaitlist(yogaClass.id);
-      setFeedback({
-        type: "success",
-        message: "You have joined the waitlist.",
-      });
+      showToast("You have joined the waitlist.", "success");
     } catch (error) {
-      setFeedback({
-        type: "error",
-        message: error.message,
-      });
+      showToast(error.message, "error");
     }
   };
 
   const handleLeaveWaitlist = () => {
     try {
       leaveWaitlist(yogaClass.id);
-      setFeedback({
-        type: "success",
-        message: "You have left the waitlist.",
-      });
+
+      showToast("You have left the waitlist.", "info");
     } catch (error) {
-      setFeedback({
-        type: "error",
-        message: error.message,
-      });
+      showToast(error.message, "error");
     }
   };
+
   return (
     <section className="class-details">
       <img
@@ -207,18 +191,6 @@ function ClassDetails() {
         <div className="class-details__booking-actions">
           <h2 className="class-details__booking-title">Booking</h2>
 
-          {feedback.message ? (
-            <p
-              className={`class-details__feedback ${
-                feedback.type === "success"
-                  ? "class-details__feedback--success"
-                  : "class-details__feedback--error"
-              }`}
-            >
-              {feedback.message}
-            </p>
-          ) : null}
-
           {isPastClass ? (
             <p className="class-details__booking-note">
               This class has already passed and can no longer be booked.
@@ -251,7 +223,7 @@ function ClassDetails() {
             <button
               type="button"
               className="ui-button ui-button--secondary"
-              onClick={handleCancelBooking}
+              onClick={() => setIsCancelModalOpen(true)}
             >
               Cancel booking
             </button>
@@ -289,6 +261,36 @@ function ClassDetails() {
           ) : null}
         </div>
       </div>
+      {isCancelModalOpen ? (
+        <div className="confirmation-modal">
+          <div className="confirmation-modal__card">
+            <h2>Cancel booking?</h2>
+
+            <p>
+              Are you sure you want to cancel your booking for{" "}
+              <strong>{yogaClass.title}</strong>?
+            </p>
+
+            <div className="confirmation-modal__actions">
+              <button
+                type="button"
+                className="ui-button ui-button--secondary"
+                onClick={handleCancelBooking}
+              >
+                Yes, cancel booking
+              </button>
+
+              <button
+                type="button"
+                className="ui-button ui-button--ghost"
+                onClick={() => setIsCancelModalOpen(false)}
+              >
+                Keep booking
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 }
